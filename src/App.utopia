@@ -1,15 +1,150 @@
 <template>
-  <div>
-    <h1>CV — Matt Hesketh</h1>
+  <div class="cv-page">
+    <Terminal>
+      <section data-command="$ whoami">
+        <CommandBlock command="$ whoami" :delay="200">
+          <div class="whoami">
+            <h1 class="name">{{ identity.name }}</h1>
+            <p class="title">{{ identity.title }}</p>
+            <p class="summary">{{ identity.summary }}</p>
+            <ContactBar />
+          </div>
+        </CommandBlock>
+      </section>
+
+      <section data-command="$ cat experience.md">
+        <CommandBlock command="$ cat experience.md" :delay="800">
+          <div class="experience">
+            <ExperienceCard
+              u-for="exp in experience"
+              :company="exp.company"
+              :title="exp.title"
+              :period="exp.period"
+              :bullets="exp.bullets"
+              :stack="exp.stack || []"
+            />
+          </div>
+        </CommandBlock>
+      </section>
+
+      <section data-command="$ ls -la skills/">
+        <CommandBlock command="$ ls -la skills/" :delay="1400">
+          <SkillTree />
+        </CommandBlock>
+      </section>
+
+      <section data-command="$ cat projects/utopiajs.md">
+        <CommandBlock command="$ cat projects/utopiajs.md" :delay="2000">
+          <ProjectCard
+            u-for="proj in projects"
+            :name="proj.name"
+            :description="proj.description"
+            :details="proj.details"
+            :url="proj.url || ''"
+          />
+        </CommandBlock>
+      </section>
+
+      <section data-command="$ echo $CONTACT">
+        <CommandBlock command="$ echo $CONTACT" :delay="2600">
+          <ContactBar />
+        </CommandBlock>
+      </section>
+
+      <div class="final-cursor">
+        <Cursor />
+      </div>
+    </Terminal>
+
+    <footer class="built-with">
+      Built with <a href="https://github.com/wrxck/utopiajs" target="_blank" rel="noopener noreferrer">UtopiaJS</a>
+    </footer>
   </div>
 </template>
 
 <script>
+import { identity, experience, projects } from './data/cv'
+import Terminal from './components/Terminal.utopia'
+import CommandBlock from './components/CommandBlock.utopia'
+import ContactBar from './components/ContactBar.utopia'
+import ExperienceCard from './components/ExperienceCard.utopia'
+import SkillTree from './components/SkillTree.utopia'
+import ProjectCard from './components/ProjectCard.utopia'
+import Cursor from './components/Cursor.utopia'
 </script>
 
 <style scoped>
-h1 {
+.cv-page {
+  min-height: 100vh;
+  background: #050505;
+  padding: 1rem;
+}
+
+.whoami .name {
+  font-family: 'Rubik Mono One', monospace;
   color: #0ff;
+  font-size: 1.8rem;
+  margin: 0 0 0.25rem 0;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.whoami .title {
+  color: #f0f;
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.whoami .summary {
+  color: #e0e0e0;
+  font-size: 0.85rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.final-cursor {
+  margin-top: 1rem;
+}
+
+.built-with {
+  text-align: center;
+  color: #333;
   font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  padding: 1rem;
+}
+
+.built-with a {
+  color: #0ff;
+  text-decoration: none;
+}
+
+@media print {
+  .cv-page {
+    background: #fff;
+    padding: 0;
+    min-height: auto;
+  }
+
+  .whoami .name {
+    color: #000;
+    font-size: 1.5rem;
+    text-shadow: none;
+  }
+
+  .whoami .title {
+    color: #333;
+  }
+
+  .whoami .summary {
+    color: #000;
+  }
+
+  .final-cursor { display: none; }
+  .built-with { display: none; }
+}
+
+@page {
+  size: A4;
+  margin: 1.5cm;
 }
 </style>
