@@ -35,13 +35,15 @@
 
       <section data-command="$ cat projects/utopiajs.md">
         <CommandBlock command="$ cat projects/utopiajs.md" :delay="2000">
-          <ProjectCard
-            u-for="proj in projects"
-            :name="proj.name"
-            :description="proj.description"
-            :details="proj.details"
-            :url="proj.url || ''"
-          />
+          <div class="projects">
+            <ProjectCard
+              u-for="proj in projects"
+              :name="proj.name"
+              :description="proj.description"
+              :details="proj.details"
+              :url="proj.url || ''"
+            />
+          </div>
         </CommandBlock>
       </section>
 

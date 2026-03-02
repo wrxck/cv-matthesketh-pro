@@ -22,9 +22,9 @@ const typed = signal('')
 const typing = signal(false)
 const done = signal(false)
 
-let observer: IntersectionObserver | null = null
-let timeoutId: ReturnType<typeof setTimeout> | null = null
-let intervalId: ReturnType<typeof setInterval> | null = null
+let observer = null
+let timeoutId = null
+let intervalId = null
 
 onMount(() => {
   const el = document.querySelector(`[data-command="${command}"]`)
@@ -41,12 +41,12 @@ onMount(() => {
     { threshold: 0.3 }
   )
   observer.observe(el)
+})
 
-  return () => {
-    observer?.disconnect()
-    if (timeoutId) clearTimeout(timeoutId)
-    if (intervalId) clearInterval(intervalId)
-  }
+onDestroy(() => {
+  observer?.disconnect()
+  if (timeoutId) clearTimeout(timeoutId)
+  if (intervalId) clearInterval(intervalId)
 })
 
 function startTyping() {
@@ -58,7 +58,7 @@ function startTyping() {
         typed.set(command.slice(0, i))
         i++
       } else {
-        clearInterval(intervalId!)
+        clearInterval(intervalId)
         typing.set(false)
         done.set(true)
       }
