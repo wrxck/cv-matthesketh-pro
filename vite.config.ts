@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import utopia from '@matthesketh/utopia-vite-plugin'
+import { defineConfig } from '@matthesketh/utopia-vite-plugin'
+import { htmlConfig } from './vite-plugin-html-config'
 
 export default defineConfig({
-  plugins: [utopia()],
+  plugins: [htmlConfig()],
 })
