@@ -47,6 +47,9 @@ export const config: SiteConfig = {
     { label: 'linkedin', url: 'https://www.linkedin.com/in/yourprofile', icon: '>' },
   ],
 
+  // Terminal prompt (displayed in the title bar)
+  terminalPrompt: 'user@host ~ cv',
+
   // Terminal command labels
   commands: {
     whoami: '$ whoami',

@@ -1,8 +1,8 @@
 {
-  "name": "cv-matthesketh-pro",
+  "name": "terminal-cv",
   "private": true,
   "version": "0.0.1",
-  "description": "Matt Hesketh's CV — Terminal Resume",
+  "description": "Config-driven terminal CV built with UtopiaJS",
   "type": "module",
   "scripts": {
     "dev": "utopia dev",
